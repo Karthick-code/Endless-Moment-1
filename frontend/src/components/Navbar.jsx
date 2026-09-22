@@ -11,7 +11,7 @@ export const Navbar = () => {
   const links = [
     { name: "Home", path: "/" },
     { name: "Work", path: "/projects" },
-    { name: "Contact", path: "/contact" },
+    // { name: "Contact", path: "/contact" },
   ];
 
   const active = (path) => location.pathname === path;

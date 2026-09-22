@@ -22,12 +22,14 @@ export const Footer = () => (
           <p className="text-[10px] uppercase tracking-[.25em] text-white/40 mb-5">Explore</p>
           <div className="space-y-2">
             <Link className="block text-sm text-white/70 hover:text-white" to="/">Home</Link>
-            <Link className="block text-sm text-white/70 hover:text-white" to="/projects">Selected work</Link>
+            <Link className="block text-sm text-white/70 hover:text-white" to="/projects">Work</Link>
             <Link className="block text-sm text-white/70 hover:text-white" to="/contact">Contact</Link>
           </div>
           <p className="text-[10px] uppercase tracking-[.25em] text-white/40 mt-8 mb-4">Services</p>
           <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-            {services.slice(0, 6).map(s => <Link key={s.slug} to={`/projects?category=${s.slug}`} className="text-xs text-white/60 hover:text-white">{s.title}</Link>)}
+            {/* {services.slice(0, 6).map(s => <Link key={s.slug} to={`/projects?category=${s.slug}`} className="text-xs text-white/60 hover:text-white">{s.title}</Link>)} */}
+            {services.map(s => <Link key={s.slug} to={`/projects?category=${s.slug}`} className="text-xs text-white/60 hover:text-white">{s.title}</Link>)}
+
           </div>
         </div>
 

@@ -60,7 +60,9 @@ export const Home = () => {
 
         <section className="overflow-hidden border-y border-[#ded8cd] py-4 bg-[#eee8de]">
           <div className="endless-marquee whitespace-nowrap flex gap-12 w-max">
-            {[...Array(2)].flatMap((_, j) => ["WEDDINGS","PRE-WEDDINGS","PORTRAITS","CELEBRATIONS","CINEMATIC FILMS","ALBUMS"].map(x => <span key={`${j}-${x}`} className="text-[11px] font-bold tracking-[.25em] text-[#77736a]">{x} ·</span>))}
+            {/* {[...Array(2)].flatMap((_, j) => ["WEDDINGS","PRE-WEDDINGS","PORTRAITS","CELEBRATIONS","CINEMATIC FILMS","ALBUMS"].map(x => <span key={`${j}-${x}`} className="text-[11px] font-bold tracking-[.25em] text-[#77736a]">{x} ·</span>))} */}
+            {[...Array(2)].flatMap((_, j) => services.map(x => <span key={`${j}-${x}`} className="text-[11px] font-bold tracking-[.25em] text-[#77736a]">{x.title} ·</span>))}
+
           </div>
         </section>
 

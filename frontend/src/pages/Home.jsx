@@ -52,7 +52,7 @@ export const Home = () => {
                 <p className="text-sm mt-1 font-semibold">Quiet direction. Honest frames. Beautiful chaos.</p>
               </div>
               <div className="absolute -right-3 top-8 hidden sm:grid w-20 h-20 rounded-full bg-[#d7a26d] place-items-center text-[#1f211e]">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-center">Made<br/>with<br/>feeling</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-center">Feel it.<br/>Frame it.</span>
               </div>
             </div>
           </div>

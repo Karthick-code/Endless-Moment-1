@@ -6,7 +6,7 @@ const getCloudinaryConfig = () => ({
   cloudName: clean(process.env.CLOUDINARY_CLOUD_NAME),
   apiKey: clean(process.env.CLOUDINARY_API_KEY),
   apiSecret: clean(process.env.CLOUDINARY_API_SECRET),
-  folder: clean(process.env.CLOUDINARY_FOLDER || "endless_moments"),
+  folder: clean(process.env.CLOUDINARY_FOLDER || "Endless-Moment"),
 });
 
 export const cloudinaryConfig = getCloudinaryConfig;

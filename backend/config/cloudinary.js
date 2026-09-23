@@ -29,7 +29,7 @@ export async function uploadImageDataUri(dataUri, folder) {
     throw new Error("Only PNG, JPEG, WebP, and GIF image data is supported.");
   }
 
-  const uploadFolder = clean(folder || config.folder) || "endless_moments";
+  const uploadFolder = clean(folder || config.folder) || "Endless-Moment";
   const timestamp = Math.floor(Date.now() / 1000);
   const paramsToSign = { folder: uploadFolder, timestamp };
   const signatureBase = Object.keys(paramsToSign)

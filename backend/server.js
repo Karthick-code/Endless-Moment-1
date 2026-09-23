@@ -8,6 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import leadRoutes from "./routes/leadRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
 import mediaRoutes from "./routes/mediaRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import UserModel from "./models/User.js";
 
 dotenv.config();
@@ -31,6 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/media", mediaRoutes);
+app.use("/api/admin", adminRoutes);
 
 async function seedDefaultAdmin() {
   const email = process.env.ADMIN_EMAIL || "admin@test.com";
@@ -48,7 +50,7 @@ async function seedDefaultAdmin() {
 
   const users = readLocalFile("users.json");
   if (users.length === 0) {
-    users.push({ _id: "u_default_seed", email, passwordHash, role: "admin" });
+    users.push({ _id: "u_default_seed", email: email.trim().toLowerCase(), passwordHash, role: "admin", passwordResetTokenHash: null, passwordResetExpiresAt: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
     writeLocalFile("users.json", users);
     console.log(`🟩 Local preview administrator created: ${email}`);
   }

@@ -42,10 +42,12 @@ export const Projects = () => {
         if(!file.type.startsWith("image/"))continue;
         if(file.size>5*1024*1024)throw new Error(`${file.name} is larger than 5 MB.`);
         const dataUri=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file);});
-        const r=await API.post("/media/upload",{dataUri}); urls.push(r.data.url);
+        const r=await API.post("/media/upload",{dataUri});
+        if(!r.data?.url) throw new Error("Cloudinary returned no image URL.");
+        urls.push(r.data.url);
       }
       setImagesText(v=>[...v.split("\n").filter(Boolean),...urls].join("\n"));
-    }catch(err){setError(err.response?.data?.msg||err.message||"Upload failed.");}finally{setUploading(false);e.target.value="";}
+    }catch(err){setError(err.response?.data?.error||err.response?.data?.msg||err.message||"Upload failed.");}finally{setUploading(false);e.target.value="";}
   };
 
   const edit=p=>{setEditing(p);setTitle(p.title||"");setDescription(p.description||"");setCategory(p.category||"");setImagesText((p.images||[]).join("\n"));setError("");setShow(true);};

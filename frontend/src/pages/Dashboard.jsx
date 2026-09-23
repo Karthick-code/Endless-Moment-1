@@ -1,20 +1,24 @@
-import React,{useEffect,useMemo,useState} from "react";
+import React,{useEffect,useState} from "react";
 import {Link,useLocation,useNavigate} from "react-router-dom";
 import {AnimatePresence,motion} from "motion/react";
-import {Plus,RefreshCw,Search,Users,Inbox,CheckCircle2,Clock3,X,Pencil,LogOut} from "lucide-react";
+import {Plus,RefreshCw,Search,Users,Inbox,CheckCircle2,Clock3,X,Pencil} from "lucide-react";
 import {useAuth} from "../context/AuthContext";
 import API from "../services/api";
 import {Navbar} from "../components/Navbar";
+import {AdminUsersPanel} from "../components/AdminUsersPanel";
 
 const initial={name:"",email:"",phone:"",message:"",status:"new",requirements:"",paymentAmount:"",advancePayment:""};
 
 export const Dashboard=()=>{
- const {isAuthenticated,logout}=useAuth(), nav=useNavigate(), loc=useLocation();
+ const {isAuthenticated,isPrimaryAdmin,email}=useAuth(), nav=useNavigate(), loc=useLocation();
  const [leads,setLeads]=useState([]),[loading,setLoading]=useState(true),[sync,setSync]=useState(false),[query,setQuery]=useState("");
  const [modal,setModal]=useState(null),[form,setForm]=useState(initial),[error,setError]=useState(""),[saving,setSaving]=useState(false);
+ const adminTab=loc.pathname.includes("/dashboard/admins");
+
  useEffect(()=>{if(!isAuthenticated)nav("/login")},[isAuthenticated,nav]);
  const load=()=>{setSync(true);API.get("/leads").then(r=>setLeads(r.data||[])).catch(()=>{}).finally(()=>{setLoading(false);setSync(false)})};
- useEffect(()=>{if(isAuthenticated)load()},[isAuthenticated]);
+ useEffect(()=>{if(isAuthenticated&&!adminTab)load()},[isAuthenticated,adminTab]);
+ useEffect(()=>{if(adminTab&&!isPrimaryAdmin)nav("/dashboard",{replace:true})},[adminTab,isPrimaryAdmin,nav]);
  const customers=leads.filter(x=>x.status==="converted"), newLeads=leads.filter(x=>x.status==="new"), contacted=leads.filter(x=>x.status==="contacted");
  const customerTab=loc.pathname.includes("customers");
  const list=(customerTab?customers:leads).filter(l=>`${l.name} ${l.email} ${l.phone}`.toLowerCase().includes(query.toLowerCase()));
@@ -27,16 +31,25 @@ export const Dashboard=()=>{
  }catch(err){setError(err.response?.data?.msg||"Could not save this client.")}finally{setSaving(false)}};
  const stats=[["All enquiries",leads.length,Inbox],["New",newLeads.length,Clock3],["Contacted",contacted.length,Users],["Clients",customers.length,CheckCircle2]];
  if(!isAuthenticated)return null;
+ if(adminTab&&isPrimaryAdmin){
+   return <div className="min-h-screen bg-[#f6f2eb] text-[#1f211e]"><Navbar/><main className="endless-shell py-10 sm:py-14">
+     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[#ded8cd] pb-8">
+       <div><p className="text-[10px] uppercase tracking-[.35em] text-[#9a6845] font-bold">Studio desk</p><h1 className="endless-serif text-5xl mt-2">Administrator access.</h1><p className="text-sm text-[#77766f] mt-3">Create, secure and remove admin accounts without exposing this control to other administrators.</p></div>
+       <Link to="/dashboard" className="rounded-full border border-[#d5cec2] bg-white px-5 py-3 text-sm font-bold">Back to enquiries</Link>
+     </div>
+     <AdminUsersPanel currentEmail={email}/>
+   </main></div>;
+ }
  return <div className="min-h-screen bg-[#f6f2eb] text-[#1f211e]">
    <Navbar/>
    <main className="endless-shell py-10 sm:py-14">
     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[#ded8cd] pb-8">
       <div><p className="text-[10px] uppercase tracking-[.35em] text-[#9a6845] font-bold">Studio desk</p><h1 className="endless-serif text-5xl mt-2">People behind the stories.</h1><p className="text-sm text-[#77766f] mt-3">Manage enquiries, follow-ups and confirmed clients in one place.</p></div>
-      <div className="flex gap-2"><button onClick={load} className="rounded-full border border-[#d5cec2] bg-white px-4 py-3 text-sm font-bold flex gap-2 items-center"><RefreshCw size={15} className={sync?"animate-spin":""}/> Refresh</button><button onClick={openAdd} className="rounded-full bg-[#1f211e] text-white px-5 py-3 text-sm font-bold flex gap-2 items-center"><Plus size={16}/> Add client</button></div>
+      <div className="flex flex-wrap gap-2"><button onClick={load} className="rounded-full border border-[#d5cec2] bg-white px-4 py-3 text-sm font-bold flex gap-2 items-center"><RefreshCw size={15} className={sync?"animate-spin":""}/> Refresh</button><button onClick={openAdd} className="rounded-full bg-[#1f211e] text-white px-5 py-3 text-sm font-bold flex gap-2 items-center"><Plus size={16}/> Add client</button></div>
     </div>
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 my-8">{stats.map(([label,n,Icon])=><div key={label} className="bg-white border border-[#ded8cd] rounded-2xl p-5"><Icon size={19} className="text-[#9a6845]"/><p className="text-xs text-[#77766f] mt-6">{label}</p><p className="text-3xl font-extrabold mt-1">{n}</p></div>)}</div>
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
-      <div className="flex rounded-full bg-[#ebe5db] p-1 w-fit"><Link to="/dashboard" className={`px-5 py-2 rounded-full text-xs font-bold ${!customerTab?"bg-white shadow-sm":""}`}>Enquiries</Link><Link to="/dashboard/customers" className={`px-5 py-2 rounded-full text-xs font-bold ${customerTab?"bg-white shadow-sm":""}`}>Clients</Link></div>
+    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
+      <div className="flex flex-wrap rounded-full bg-[#ebe5db] p-1 w-fit"><Link to="/dashboard" className={`px-5 py-2 rounded-full text-xs font-bold ${!customerTab?"bg-white shadow-sm":""}`}>Enquiries</Link><Link to="/dashboard/customers" className={`px-5 py-2 rounded-full text-xs font-bold ${customerTab?"bg-white shadow-sm":""}`}>Clients</Link>{isPrimaryAdmin&&<Link to="/dashboard/admins" className={`px-5 py-2 rounded-full text-xs font-bold ${adminTab?"bg-white shadow-sm":""}`}>Admins</Link>}</div>
       <div className="relative w-full sm:w-72"><Search className="absolute left-3 top-3 size-4 text-[#999]"/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search people…" className="w-full rounded-full border border-[#d9d2c6] bg-white pl-10 pr-4 py-2.5 text-sm outline-none"/></div>
     </div>
     <div className="bg-white border border-[#ded8cd] rounded-2xl overflow-hidden">

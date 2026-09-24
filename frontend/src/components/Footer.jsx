@@ -4,6 +4,7 @@ import { ArrowUpRight, Instagram, Mail, Phone } from "lucide-react";
 import { services } from "../config/services";
 import contactConfig from "../config/contact";
 import { Login } from "../pages/Login";
+import { useAuth } from "../context/AuthContext";
 
 
 export const Footer = () => {

@@ -52,7 +52,7 @@ export const Footer = () => {
             {contactConfig.phones.map((p,i) => <a key={i} className="flex gap-3 hover:text-white"><Phone size={15}/>{p}</a>)}
             {contactConfig.emails.map((e,i) => <a key={i} href={`mailto:${e}`} className="flex gap-3 hover:text-white break-all"><Mail size={15}/>{e}</a>)}
             {contactConfig.instagramLinks.map((u,i) => {
-              const name = u.replace(/\/+$/,"").split("/").pop().split('?')[0].replace("."," ") .replace(/\b\w/g, char => char.toUpperCase());;
+              const name = u.replace(/\/+$/,"").split("/").pop().split('?')[0].replace("."," ") .replace(/\b\w/g, char => char.toUpperCase());
               return <a key={i} href={u} target="_blank" rel="noreferrer" className="flex gap-3 hover:text-white"><Instagram size={15}/>@{name}</a>;
             })}
           </div>

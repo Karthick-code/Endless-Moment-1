@@ -31,7 +31,7 @@ export const Contact = () => {
         <div className="mt-10 space-y-4">
           {contactConfig.phones.map((p,i)=><a key={i} href={`tel:${p.replace(/\s+/g,"")}`} className="flex items-center gap-3 text-sm font-semibold hover:text-[#9a6845]"><span className="w-9 h-9 rounded-full bg-[#ebe3d7] grid place-items-center"><Phone size={15}/></span>{p}</a>)}
           {contactConfig.emails.map((e,i)=><a key={i} href={`mailto:${e}`} className="flex items-center gap-3 text-sm font-semibold hover:text-[#9a6845] break-all"><span className="w-9 h-9 rounded-full bg-[#ebe3d7] grid place-items-center"><Mail size={15}/></span>{e}</a>)}
-          {contactConfig.instagramLinks.map((u,i)=>{const n=u.replace(/\/+$/,"").split("/").pop();return <a key={i} href={u} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm font-semibold hover:text-[#9a6845]"><span className="w-9 h-9 rounded-full bg-[#ebe3d7] grid place-items-center"><Instagram size={15}/></span>@{n}</a>})}
+          {contactConfig.instagramLinks.map((u,i)=>{const name = u.replace(/\/+$/,"").split("/").pop().split('?')[0].replace("."," ") .replace(/\b\w/g, char => char.toUpperCase());return <a key={i} href={u} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm font-semibold hover:text-[#9a6845]"><span className="w-9 h-9 rounded-full bg-[#ebe3d7] grid place-items-center"><Instagram size={15}/></span>@{n}</a>})}
         </div>
       </div>
 

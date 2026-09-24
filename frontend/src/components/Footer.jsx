@@ -9,6 +9,8 @@ import { useAuth } from "../context/AuthContext";
 
 export const Footer = () => {
   const { isAuthenticated, logout } = useAuth();
+  
+
   return(
   <footer className="bg-[#1f211e] text-[#f6f2eb] mt-24">
     <div className="endless-shell py-16">
@@ -50,9 +52,9 @@ export const Footer = () => {
           </div>
           <div className="space-y-4 text-sm text-white/70">
           {isAuthenticated ? 
-                       <button onClick={logout} className="text-[#9a6845] text-[12px] font-bold">Log out</button>: 
-                       <button onClick={<Login/>} className="text-[#9a6845] text-[12px] font-bold">Login</button> }
-
+                       <button onClick={logout} className="endless-button inline-flex items-center gap-2 rounded-full bg-[#1f211e] text-white px-6 py-3.5 text-sm font-bold">Log out</button>: 
+                       <Link to="/login" className="endless-button inline-flex items-center gap-2 rounded-full bg-[#1f211e] text-white px-6 py-3.5 text-sm font-bold">Login </Link> 
+                       }
           </div>
         </div>
       </div>

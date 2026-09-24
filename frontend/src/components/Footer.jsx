@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, Instagram, Mail, Phone } from "lucide-react";
 import { services } from "../config/services";
 import contactConfig from "../config/contact";
+import { Login } from "../pages/Login";
 
-export const Footer = () => (
+
+export const Footer = () => {
+  const { isAuthenticated, logout } = useAuth();
+  return(
   <footer className="bg-[#1f211e] text-[#f6f2eb] mt-24">
     <div className="endless-shell py-16">
       <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr_1fr] gap-12">
@@ -43,6 +47,12 @@ export const Footer = () => (
               return <a key={i} href={u} target="_blank" rel="noreferrer" className="flex gap-3 hover:text-white"><Instagram size={15}/>@{name}</a>;
             })}
           </div>
+          <div className="space-y-4 text-sm text-white/70">
+          {isAuthenticated ? 
+                       <button onClick={logout} className="text-[#9a6845] text-[12px] font-bold">Log out</button>: 
+                       <button onClick={<Login/>} className="text-[#9a6845] text-[12px] font-bold">Login</button> }
+
+          </div>
         </div>
       </div>
       <div className="border-t border-white/10 mt-14 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-[11px] text-white/40">
@@ -51,4 +61,4 @@ export const Footer = () => (
       </div>
     </div>
   </footer>
-);
+);}

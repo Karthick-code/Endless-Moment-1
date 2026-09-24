@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { KeyRound, Plus, RefreshCw, ShieldCheck, Trash2, UserRound, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import API from "../services/api";
-import { Footer } from "./Footer";
 
 export const AdminUsersPanel = ({ currentEmail }) => {
   const [admins, setAdmins] = useState([]);

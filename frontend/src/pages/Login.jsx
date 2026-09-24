@@ -53,7 +53,7 @@ export const Login=()=>{
     }catch(err){setError(err.response?.data?.msg||"Unable to reset password.")}finally{setLoading(false)}
   };
 
-  const header={login:{eyebrow:"Private studio",title:"Welcome back.",description:"Sign in to manage enquiries and your portfolio."},forgot:{eyebrow:"Account recovery",title:"Reset your password.",description:"Enter an admin email and we'll send a secure reset link."},reset:{eyebrow:"Secure reset",title:"Choose a new password.",description:"This link is valid for 30 minutes and can only be used once."}}[mode];
+  const header={login:{eyebrow:"Private studio",title:"Welcome back.",description:"Sign in to manage enquiries and your portfolio. \nOnly for Admins"},forgot:{eyebrow:"Account recovery",title:"Reset your password.",description:"Enter an admin email and we'll send a secure reset link."},reset:{eyebrow:"Secure reset",title:"Choose a new password.",description:"This link is valid for 30 minutes and can only be used once."}}[mode];
 
   return <div className="endless-page"><Navbar/><main className="endless-shell min-h-[calc(100vh-76px)] grid place-items-center py-16"><div className="w-full max-w-md endless-card rounded-[2rem] p-7 sm:p-10">
     <p className="text-[10px] uppercase tracking-[.35em] text-[#9a6845] font-bold">{header.eyebrow}</p><h1 className="endless-serif text-4xl mt-3">{header.title}</h1><p className="text-sm text-[#77766f] mt-2">{header.description}</p>

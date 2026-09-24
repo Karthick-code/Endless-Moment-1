@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Instagram, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Instagram, Mail, Phone ,LogOut,LogIn} from "lucide-react";
 import { services } from "../config/services";
 import contactConfig from "../config/contact";
-import { Login } from "../pages/Login";
 import { useAuth } from "../context/AuthContext";
 
 
@@ -25,8 +24,8 @@ export const Footer = () => {
           </Link>
           <div className="absolute bottom-0 right-0">
           {isAuthenticated ? 
-                       <button onClick={logout} className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-black px-6 py-3.5 text-sm font-bold">Log out</button>: 
-                       <Link to="/login" className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-black px-6 py-3.5 text-sm font-bold" >Admin Login </Link> 
+                       <button onClick={logout} className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-black px-6 py-3.5 text-sm font-bold">Log out <LogOut /></button>: 
+                       <Link to="/login" className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-black px-6 py-3.5 text-sm font-bold" >Admin Login <LogIn /> </Link> 
                        }
           </div>
         </div>
@@ -49,10 +48,11 @@ export const Footer = () => {
         <div  >
           <p className="text-[10px] uppercase tracking-[.25em] text-white/40 mb-5">Reach us</p>
           <div className="space-y-4 text-sm text-white/70">
-            {contactConfig.phones.map((p,i) => <a key={i} href={`tel:${p.replace(/\s+/g,"")}`} className="flex gap-3 hover:text-white"><Phone size={15}/>{p}</a>)}
+            {/* {contactConfig.phones.map((p,i) => <a key={i} href={`tel:${p.replace(/\s+/g,"")}`} className="flex gap-3 hover:text-white"><Phone size={15}/>{p}</a>)} */}
+            {contactConfig.phones.map((p,i) => <a key={i} className="flex gap-3 hover:text-white"><Phone size={15}/>{p}</a>)}
             {contactConfig.emails.map((e,i) => <a key={i} href={`mailto:${e}`} className="flex gap-3 hover:text-white break-all"><Mail size={15}/>{e}</a>)}
             {contactConfig.instagramLinks.map((u,i) => {
-              const name = u.replace(/\/+$/,"").split("/").pop();
+              const name = u.replace(/\/+$/,"").split("/").pop().split('?')[0].replace("."," ") .replace(/\b\w/g, char => char.toUpperCase());;
               return <a key={i} href={u} target="_blank" rel="noreferrer" className="flex gap-3 hover:text-white"><Instagram size={15}/>@{name}</a>;
             })}
           </div>

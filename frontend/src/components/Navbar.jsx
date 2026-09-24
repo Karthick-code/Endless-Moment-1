@@ -14,6 +14,8 @@ export const Navbar = () => {
     // { name: "Contact", path: "/contact" },
   ];
 
+
+
   const active = (path) => location.pathname === path;
 
   return (
@@ -41,7 +43,7 @@ export const Navbar = () => {
               <Link to="/dashboard" className="text-[#62615b] hover:text-[#1f211e] flex items-center gap-1.5 text-[13px] font-semibold">
                 <LayoutDashboard size={15} /> Studio
               </Link>
-              <button onClick={logout} className="text-[#9a6845] text-[12px] font-bold">Sign out</button>
+              <button onClick={logout} className="text-[#9a6845] text-[12px] font-bold">Sign out <LogOut /></button>
             </>
           )}
           <Link to="/contact" className="endless-button inline-flex items-center gap-2 bg-[#1f211e] text-white px-5 py-3 rounded-full text-[12px] font-bold">

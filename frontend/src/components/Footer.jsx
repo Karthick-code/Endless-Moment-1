@@ -52,8 +52,8 @@ export const Footer = () => {
           </div>
           <div className="absolute bottom-0 right-0">
           {isAuthenticated ? 
-                       <button onClick={logout} className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-white px-6 py-3.5 text-sm font-bold">Log out</button>: 
-                       <Link to="/login" className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-white px-6 py-3.5 text-sm font-bold">Admin Login </Link> 
+                       <button onClick={logout} className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-black px-6 py-3.5 text-sm font-bold">Log out</button>: 
+                       <Link to="/login" className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-black px-6 py-3.5 text-sm font-bold" >Admin Login </Link> 
                        }
           </div>
         </div>

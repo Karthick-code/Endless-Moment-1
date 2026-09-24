@@ -196,7 +196,6 @@ export const AdminUsersPanel = ({ currentEmail }) => {
         )}
       </div>
 
-      <Footer />
 
       <AnimatePresence>
         {modal && (

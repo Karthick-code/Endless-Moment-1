@@ -40,7 +40,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div>
+        <div  className="relative">
           <p className="text-[10px] uppercase tracking-[.25em] text-white/40 mb-5">Reach us</p>
           <div className="space-y-4 text-sm text-white/70">
             {contactConfig.phones.map((p,i) => <a key={i} href={`tel:${p.replace(/\s+/g,"")}`} className="flex gap-3 hover:text-white"><Phone size={15}/>{p}</a>)}
@@ -50,10 +50,10 @@ export const Footer = () => {
               return <a key={i} href={u} target="_blank" rel="noreferrer" className="flex gap-3 hover:text-white"><Instagram size={15}/>@{name}</a>;
             })}
           </div>
-          <div className="space-y-4 text-sm text-white/70">
+          <div className="absolute bottom-0 right-0">
           {isAuthenticated ? 
-                       <button onClick={logout} className="endless-button inline-flex items-center gap-2 rounded-full bg-[#1f211e] text-white px-6 py-3.5 text-sm font-bold">Log out</button>: 
-                       <Link to="/login" className="endless-button inline-flex items-center gap-2 rounded-full bg-[#1f211e] text-white px-6 py-3.5 text-sm font-bold">Login </Link> 
+                       <button onClick={logout} className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-white px-6 py-3.5 text-sm font-bold">Log out</button>: 
+                       <Link to="/login" className="endless-button inline-flex items-center gap-2 rounded-full bg-[#f6f2eb] text-white px-6 py-3.5 text-sm font-bold">Admin Login </Link> 
                        }
           </div>
         </div>
